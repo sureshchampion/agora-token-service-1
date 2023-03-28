@@ -13,7 +13,7 @@ func (s *Service) getRtcToken(c *gin.Context) {
 	log.Println("Generating RTC token")
 	// get param values
 	channelName, tokenType, uidStr, _, role, expireTimestamp, err := s.parseRtcParams(c)
-
+        c.Header("Access-Control-Allow-Origin", "*")
 	if err != nil {
 		c.Error(err)
 		c.AbortWithStatusJSON(400, gin.H{
@@ -45,7 +45,7 @@ func (s *Service) getRtmToken(c *gin.Context) {
 	log.Println("Generating RTM token")
 	// get param values
 	uidStr, expireTimestamp, err := s.parseRtmParams(c)
-
+        c.Header("Access-Control-Allow-Origin", "*")
 	if err != nil {
 		c.Error(err)
 		c.AbortWithStatusJSON(400, gin.H{
@@ -76,7 +76,7 @@ func (s *Service) getRtcRtmToken(c *gin.Context) {
 	log.Println("Generating RTC and RTM tokens")
 	// get rtc param values
 	channelName, tokenType, uidStr, rtmuid, role, expireTimestamp, rtcParamErr := s.parseRtcParams(c)
-
+        c.Header("Access-Control-Allow-Origin", "*")
 	if rtcParamErr == nil && rtmuid == "" {
 		rtcParamErr = fmt.Errorf("failed to parse rtm user ID. Cannot be empty or \"0\"")
 	}
